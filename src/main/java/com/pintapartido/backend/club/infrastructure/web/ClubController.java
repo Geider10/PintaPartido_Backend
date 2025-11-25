@@ -1,9 +1,9 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
-import com.pintapartido.backend.club.application.dtos.ClubDetailDTO;
-import com.pintapartido.backend.club.application.dtos.ClubListDTO;
-import com.pintapartido.backend.club.application.dtos.ClubSaveDTO;
-import com.pintapartido.backend.club.application.dtos.ClubStatusDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubStatusDTO;
 import com.pintapartido.backend.club.application.services.ClubService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
 import jakarta.validation.Valid;
@@ -77,7 +77,7 @@ public class ClubController {
             .build());
   }
   @PatchMapping("/{id}/status")
-  public ResponseEntity<GenericResponseDto<Void>> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDto statusDto){
+  public ResponseEntity<GenericResponseDto<Void>> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDTO statusDto){
     log.info("PATCH /clubs/{}/status - Update club status by id",id);
     this.clubService.updateClubStatus(id, statusDto);
 

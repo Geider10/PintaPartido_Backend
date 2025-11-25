@@ -1,6 +1,6 @@
-package com.pintapartido.backend.club.application.useCases;
+package com.pintapartido.backend.club.application.useCases.club;
 
-import com.pintapartido.backend.club.application.dtos.ClubListDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
 import com.pintapartido.backend.club.application.mappers.ClubMapper;
 import com.pintapartido.backend.club.domain.models.ClubModel;
 import com.pintapartido.backend.club.domain.respositories.ClubRepository;
