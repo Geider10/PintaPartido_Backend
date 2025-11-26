@@ -4,20 +4,24 @@ import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDTO;
 import com.pintapartido.backend.club.application.dtos.request.ScheduleUpdateDto;
 import com.pintapartido.backend.club.application.dtos.response.ScheduleListDto;
 import com.pintapartido.backend.club.application.useCases.schedule.CreateScheduleUC;
+import com.pintapartido.backend.club.application.useCases.schedule.DeleteScheduleByClubUC;
 import com.pintapartido.backend.club.application.useCases.schedule.GetAllScheduleByClubIdUC;
 import com.pintapartido.backend.club.application.useCases.schedule.UpdateScheduleByClubUC;
 import com.pintapartido.backend.club.domain.respositories.ScheduleRepository;
+import jakarta.transaction.Transactional;
 import java.util.List;
 
 public class ScheduleService {
   private final CreateScheduleUC createUC;
   private final GetAllScheduleByClubIdUC getAllUC;
   private final UpdateScheduleByClubUC updateUC;
+  private final DeleteScheduleByClubUC deleteUC;
 
   public ScheduleService(ScheduleRepository scheduleRepository) {
     this.createUC = new CreateScheduleUC(scheduleRepository);
     this.getAllUC = new GetAllScheduleByClubIdUC(scheduleRepository);
     this.updateUC = new UpdateScheduleByClubUC(scheduleRepository);
+    this.deleteUC = new DeleteScheduleByClubUC(scheduleRepository);
   }
 
   public void createSchedule(ScheduleSaveDTO dto){
@@ -28,5 +32,9 @@ public class ScheduleService {
   }
   public void updateScheduleByClub(Long id, Long clubId, ScheduleUpdateDto dto){
     this.updateUC.execute(id, clubId, dto);
+  }
+  @Transactional
+  public void deleteScheduleByClub(Long id, Long clubId){
+    this.deleteUC.execute(id, clubId);
   }
 }

@@ -60,4 +60,9 @@ public class ScheduleRepositoryAdapter implements ScheduleRepository {
   public boolean existsByDayTypeAndClubIdAndIdNot(String day, Long clubId, Long id) {
     return this.jpa.existsByDayTypeAndClubIdAndIdNot(day, clubId, id);
   }
+
+  @Override
+  public void deleteByIdAndClubId(Long id, Long clubId) {
+    this.jpa.deleteByIdAndClubId(id, clubId);
+  }
 }

@@ -10,4 +10,5 @@ public interface ScheduleJpaRepository extends JpaRepository<ScheduleEntity, Lon
   List<ScheduleEntity> findByClubId(Long clubId);
   Optional<ScheduleEntity> findByIdAndClubId(Long id, Long clubId);
   boolean existsByDayTypeAndClubIdAndIdNot(String day, Long clubId, Long id);
+  void deleteByIdAndClubId(Long id, Long clubId);
 }

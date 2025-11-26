@@ -10,6 +10,7 @@ import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -59,6 +60,17 @@ public class ScheduleController {
         .body(GenericResponseDto.<Void>builder()
             .code(HttpStatus.OK.value())
             .message("Schedule updated successfully")
+            .build());
+  }
+  @DeleteMapping("/{id}/club/{clubId}")
+  public ResponseEntity<GenericResponseDto<Void>> deleteScheduleByClub(@PathVariable Long id, @PathVariable Long clubId){
+    log.info("DELETE /api/schedules/{}/club/{} - Delete schedule by id and club id", id, clubId);
+    this.scheduleService.deleteScheduleByClub(id, clubId);
+
+    return ResponseEntity.status(HttpStatus.OK)
+        .body(GenericResponseDto.<Void>builder()
+            .code(HttpStatus.OK.value())
+            .message("Schedule deleted successfully")
             .build());
   }
 }

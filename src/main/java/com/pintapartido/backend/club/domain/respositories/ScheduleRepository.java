@@ -10,4 +10,5 @@ public interface ScheduleRepository {
   List<ScheduleModel> findByClubId(Long clubId);
   Optional<ScheduleModel> findByIdAndClubId(Long id, Long clubId);
   boolean existsByDayTypeAndClubIdAndIdNot(String day, Long clubId, Long id);
+  void deleteByIdAndClubId(Long id, Long clubId);
 }
