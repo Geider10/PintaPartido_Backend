@@ -21,12 +21,24 @@ public class ScheduleModel {
     this.clubId = clubId;
     this.validateStartTime();
   }
+  public ScheduleModel(Long id, String dayType, LocalTime startTime, LocalTime endTime){
+    this.id = id;
+    this.dayType = formatToDayType(dayType);
+    this.startTime = startTime;
+    this.endTime = endTime;
+  }
   public Long getId(){return this.id;}
   public String getDayType(){return this.dayType.name();}
   public LocalTime getStartTime(){return startTime;}
   public LocalTime getEndTime(){return this.endTime;}
   public Long getClubId(){return this.clubId;}
 
+  public String getStartTimeString(){
+    return this.startTime.toString();
+  }
+  public String getEndTimeString(){
+    return this.endTime.toString();
+  }
   private DayTypeEnum formatToDayType(String dayType) {
     try {
       return DayTypeEnum.valueOf(dayType.toUpperCase());

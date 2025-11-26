@@ -49,7 +49,7 @@ public class ClubController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(GenericResponseDto.<List<ClubListDTO>>builder()
                 .code(HttpStatus.OK.value())
-                .message("Clubs retrieved successfully")
+                .message("Clubs obtained successfully")
                 .data(clubs)
                 .build());
   }
@@ -61,7 +61,7 @@ public class ClubController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(GenericResponseDto.<ClubDetailDTO>builder()
                 .code(HttpStatus.OK.value())
-                .message("Club retrieved successfully")
+                .message("Club obtained successfully")
                 .data(club)
                 .build());
   }
