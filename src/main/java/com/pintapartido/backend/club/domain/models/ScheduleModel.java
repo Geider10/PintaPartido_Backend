@@ -15,24 +15,33 @@ public class ScheduleModel {
 
   public ScheduleModel(String dayType, String startTime, String endTime, Long clubId){
     this.validateAttributeValue(dayType, startTime, endTime, clubId);
-    this.dayType = formatToDayType(dayType);
-    this.startTime = formatToTime(startTime);
-    this.endTime = formatToTime(endTime);
+    this.setDayType(dayType);
+    this.setStartTime(startTime);
+    this.setEndTime(endTime);
     this.clubId = clubId;
-    this.validateStartTime();
   }
-  public ScheduleModel(Long id, String dayType, LocalTime startTime, LocalTime endTime){
+  public ScheduleModel(Long id, String dayType, LocalTime startTime, LocalTime endTime, Long clubId){
     this.id = id;
-    this.dayType = formatToDayType(dayType);
+    this.setDayType(dayType);
     this.startTime = startTime;
     this.endTime = endTime;
+    this.clubId = clubId;
   }
   public Long getId(){return this.id;}
   public String getDayType(){return this.dayType.name();}
   public LocalTime getStartTime(){return startTime;}
   public LocalTime getEndTime(){return this.endTime;}
   public Long getClubId(){return this.clubId;}
-
+  public void setDayType(String dayType){
+    this.dayType = this.formatToDayType(dayType);
+  }
+  public void setStartTime(String startTime){
+    this.startTime = this.formatToTime(startTime);
+  }
+  public void setEndTime(String endTime){
+    this.endTime = this.formatToTime(endTime);
+    this.validateStartTime();
+  }
   public String getStartTimeString(){
     return this.startTime.toString();
   }
@@ -56,8 +65,8 @@ public class ScheduleModel {
     }
   }
   private void validateStartTime(){
-    boolean isPastTime = this.startTime.isBefore(this.endTime);
-    if (!isPastTime) throw new InternalServerException("Start time is greater than end time");
+    boolean isAfterTime = this.startTime.isAfter(this.endTime);
+    if (isAfterTime) throw new InternalServerException("Start time is greater than end time");
   }
   private void validateAttributeValue(String dayType, String startTime, String endTime, Long clubId){
     if (dayType.isBlank()) throw new InternalServerException("Day type is required");
