@@ -1,4 +1,4 @@
-package com.pintapartido.backend.club.application.useCases;
+package com.pintapartido.backend.club.application.useCases.club;
 
 import com.pintapartido.backend.shared.exceptions.NotFoundException;
 import com.pintapartido.backend.club.domain.models.ClubModel;

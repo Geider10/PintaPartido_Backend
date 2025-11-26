@@ -1,6 +1,6 @@
-package com.pintapartido.backend.club.application.useCases;
+package com.pintapartido.backend.club.application.useCases.club;
 
-import com.pintapartido.backend.club.application.dtos.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
 import com.pintapartido.backend.club.application.mappers.ClubMapper;
 import com.pintapartido.backend.club.domain.exceptions.DuplicateNameAndAddressException;
 import com.pintapartido.backend.shared.exceptions.NotFoundException;

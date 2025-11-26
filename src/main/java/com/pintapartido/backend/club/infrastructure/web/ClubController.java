@@ -1,9 +1,9 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
-import com.pintapartido.backend.club.application.dtos.ClubDetailDTO;
-import com.pintapartido.backend.club.application.dtos.ClubListDTO;
-import com.pintapartido.backend.club.application.dtos.ClubSaveDTO;
-import com.pintapartido.backend.club.application.dtos.ClubStatusDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubStatusDTO;
 import com.pintapartido.backend.club.application.services.ClubService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
 import jakarta.validation.Valid;
@@ -49,7 +49,7 @@ public class ClubController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(GenericResponseDto.<List<ClubListDTO>>builder()
                 .code(HttpStatus.OK.value())
-                .message("Clubs retrieved successfully")
+                .message("Clubs obtained successfully")
                 .data(clubs)
                 .build());
   }
@@ -61,7 +61,7 @@ public class ClubController {
     return ResponseEntity.status(HttpStatus.OK)
             .body(GenericResponseDto.<ClubDetailDTO>builder()
                 .code(HttpStatus.OK.value())
-                .message("Club retrieved successfully")
+                .message("Club obtained successfully")
                 .data(club)
                 .build());
   }
@@ -77,7 +77,7 @@ public class ClubController {
             .build());
   }
   @PatchMapping("/{id}/status")
-  public ResponseEntity<GenericResponseDto<Void>> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDto statusDto){
+  public ResponseEntity<GenericResponseDto<Void>> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDTO statusDto){
     log.info("PATCH /clubs/{}/status - Update club status by id",id);
     this.clubService.updateClubStatus(id, statusDto);
 

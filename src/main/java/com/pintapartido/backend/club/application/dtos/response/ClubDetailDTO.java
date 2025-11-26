@@ -1,4 +1,4 @@
-package com.pintapartido.backend.club.application.dtos;
+package com.pintapartido.backend.club.application.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

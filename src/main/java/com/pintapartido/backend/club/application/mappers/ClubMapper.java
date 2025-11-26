@@ -1,8 +1,8 @@
 package com.pintapartido.backend.club.application.mappers;
 
-import com.pintapartido.backend.club.application.dtos.ClubDetailDTO;
-import com.pintapartido.backend.club.application.dtos.ClubListDTO;
-import com.pintapartido.backend.club.application.dtos.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
 import com.pintapartido.backend.club.domain.models.ClubModel;
 
 public class ClubMapper {

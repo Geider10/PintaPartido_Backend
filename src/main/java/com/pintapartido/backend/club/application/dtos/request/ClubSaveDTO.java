@@ -1,4 +1,4 @@
-package com.pintapartido.backend.club.application.dtos;
+package com.pintapartido.backend.club.application.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
