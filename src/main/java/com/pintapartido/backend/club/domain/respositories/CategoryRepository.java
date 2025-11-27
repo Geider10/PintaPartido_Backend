@@ -10,4 +10,5 @@ public interface CategoryRepository {
   List<CategoryModel> findAll();
   boolean existsByNameAndIdNot(String name, Long id);
   Optional<CategoryModel> findById(Long id);
+  void deleteById(Long id);
 }

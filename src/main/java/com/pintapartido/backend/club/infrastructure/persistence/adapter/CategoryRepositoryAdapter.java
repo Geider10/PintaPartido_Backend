@@ -1,6 +1,5 @@
 package com.pintapartido.backend.club.infrastructure.persistence.adapter;
 
-import com.pintapartido.backend.club.application.dtos.response.CategoryListDto;
 import com.pintapartido.backend.club.domain.models.CategoryModel;
 import com.pintapartido.backend.club.domain.respositories.CategoryRepository;
 import com.pintapartido.backend.club.infrastructure.persistence.entity.CategoryEntity;
@@ -52,5 +51,10 @@ public class CategoryRepositoryAdapter implements CategoryRepository {
         entity.getId(),
         entity.getName()
     ));
+  }
+
+  @Override
+  public void deleteById(Long id) {
+    this.jpa.deleteById(id);
   }
 }
