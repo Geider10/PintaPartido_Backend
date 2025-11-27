@@ -4,13 +4,14 @@ import com.pintapartido.backend.shared.exceptions.GenericException;
 import com.pintapartido.backend.shared.exceptions.HttpCodeMessage;
 import org.springframework.http.HttpStatus;
 
-public class DuplicateDayException extends GenericException {
+public class DuplicateCategoryNameException extends GenericException {
 
-  private static String detail = "Schedule cannot be saved because day type is duplicated";
-  public DuplicateDayException(){
+  private static String detail = "Category cannot be saved because name is duplicated";
+  public DuplicateCategoryNameException() {
     super(HttpStatus.CONFLICT.value(),
         HttpCodeMessage.CODE409,
         detail,
-        HttpStatus.CONFLICT);
+        HttpStatus.CONFLICT
+    );
   }
 }
