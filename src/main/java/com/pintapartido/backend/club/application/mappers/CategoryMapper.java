@@ -16,4 +16,7 @@ public class CategoryMapper {
         model.getName()
     );
   }
+  public static void updateToModel(CategoryModel model, CategorySaveDto dto){
+    model.setName(dto.getName());
+  }
 }
