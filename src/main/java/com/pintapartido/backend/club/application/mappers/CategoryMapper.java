@@ -1,6 +1,7 @@
 package com.pintapartido.backend.club.application.mappers;
 
 import com.pintapartido.backend.club.application.dtos.request.CategorySaveDto;
+import com.pintapartido.backend.club.application.dtos.response.CategoryListDto;
 import com.pintapartido.backend.club.domain.models.CategoryModel;
 
 public class CategoryMapper {
@@ -9,5 +10,10 @@ public class CategoryMapper {
         dto.getName()
     );
   }
-
+  public static CategoryListDto convertToCategoryList(CategoryModel model){
+    return new CategoryListDto(
+        model.getId(),
+        model.getName()
+    );
+  }
 }

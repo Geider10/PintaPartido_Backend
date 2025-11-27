@@ -11,7 +11,10 @@ public class CategoryModel {
     if (name.isBlank()) throw new InternalServerException("Name is required");
     this.setName(name);
   }
-
+  public CategoryModel(Long id, String name){
+    this.id = id;
+    this.setName(name);
+  }
   public Long getId() {return this.id;}
   public String getName() {return this.name.name();}
   public void setName(String name){

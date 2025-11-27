@@ -1,12 +1,15 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
 import com.pintapartido.backend.club.application.dtos.request.CategorySaveDto;
+import com.pintapartido.backend.club.application.dtos.response.CategoryListDto;
 import com.pintapartido.backend.club.application.services.CategoryService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
 import jakarta.validation.Valid;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,5 +33,16 @@ public class CategoryController {
             .code(HttpStatus.CREATED.value())
             .message("Category created successfully")
             .build());
+  }
+  @GetMapping()
+  public GenericResponseDto<List<CategoryListDto>> getAllCategory(){
+    log.info("GET /api/categories - Get all categories");
+    List<CategoryListDto> categories = this.categoryService.getAllCategory();
+
+    return GenericResponseDto.<List<CategoryListDto>>builder()
+        .code(HttpStatus.OK.value())
+        .message("Category obtained successfully")
+        .data(categories)
+        .build();
   }
 }
