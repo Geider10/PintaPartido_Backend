@@ -2,9 +2,9 @@ package com.pintapartido.backend.club.application.useCases.category;
 
 import com.pintapartido.backend.club.application.dtos.request.CategorySaveDto;
 import com.pintapartido.backend.club.application.mappers.CategoryMapper;
-import com.pintapartido.backend.club.domain.exceptions.DuplicateCategoryNameException;
 import com.pintapartido.backend.club.domain.models.CategoryModel;
 import com.pintapartido.backend.club.domain.respositories.CategoryRepository;
+import com.pintapartido.backend.shared.exceptions.category.ConflictException;
 
 public class CreateCategoryUC {
   private final CategoryRepository categoryRepository;
@@ -14,7 +14,7 @@ public class CreateCategoryUC {
 
   public void execute(CategorySaveDto dto){
     boolean exsitsCategory = this.categoryRepository.existsByName(dto.getName());
-    if (exsitsCategory) throw new DuplicateCategoryNameException();
+    if (exsitsCategory) throw new ConflictException("Category name is duplicated in DB");
 
     CategoryModel category = CategoryMapper.convertToModel(dto);
     this.categoryRepository.save(category);
