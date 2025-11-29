@@ -13,12 +13,23 @@ public class UpdateCategoryUC {
   public UpdateCategoryUC(CategoryRepository categoryRepository){
     this.categoryRepository = categoryRepository;
   }
+  /**
+   * Update a category by id if the category is found and the name does not exist.<p>
+   * Business rules:<p>
+   * - Category must exist within the system.<p>
+   * - Category name must be uniques within the system.<p>
+   * Throws:<p>
+   * - NotFoundException if category not found.<p>
+   * - ConflictException if category name already exists.
+   * @param id the category id, not nul
+   * @param dto the category data, not null
+   */
   public void execute(Long id, CategorySaveDto dto){
     Optional<CategoryModel> category = this.categoryRepository.findById(id);
-    if (category.isEmpty()) throw new NotFoundException("Category not found in DB");
+    if (category.isEmpty()) throw new NotFoundException("Category not found");
 
     boolean existsCategory = this.categoryRepository.existsByNameAndIdNot(dto.getName(), id);
-    if (existsCategory) throw new ConflictException("Category name is duplicated in DB");
+    if (existsCategory) throw new ConflictException("Category name already exists");
 
     CategoryMapper.updateToModel(category.get(), dto);
     this.categoryRepository.save(category.get());

@@ -2,70 +2,42 @@ package com.pintapartido.backend.club.infrastructure.web;
 
 import com.pintapartido.backend.club.application.dtos.request.CategorySaveDto;
 import com.pintapartido.backend.club.application.dtos.response.CategoryListDto;
-import com.pintapartido.backend.club.application.services.CategoryService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/categories")
-@Slf4j
-public class CategoryController {
-  private final CategoryService categoryService;
-  public CategoryController(CategoryService categoryService){
-    this.categoryService = categoryService;
-  }
-  @PostMapping()
-  public ResponseEntity<GenericResponseDto<Void>> createCategory(@Valid @RequestBody CategorySaveDto dto){
-    log.info("POST /api/categories - Create category");
-    this.categoryService.createCategory(dto);
+@Tag(name = "Category")
+public interface CategoryController {
 
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(GenericResponseDto.<Void>builder()
-            .code(HttpStatus.CREATED.value())
-            .message("Category created successfully")
-            .build());
-  }
-  @GetMapping()
-  public GenericResponseDto<List<CategoryListDto>> getAllCategory(){
-    log.info("GET /api/categories - Get all categories");
-    List<CategoryListDto> categories = this.categoryService.getAllCategory();
+  @Operation(summary = "Create category", description = "Create a new category if the name doesn't exist")
+  @ApiResponses({
+      @ApiResponse(responseCode = "201", description = "Category created"),
+      @ApiResponse(responseCode = "409", description = "Category name already exists"),
+      @ApiResponse(responseCode = "422", description = "Category name format is invalid")
+  })
+  ResponseEntity<GenericResponseDto<Void>> createCategory(CategorySaveDto dto);
 
-    return GenericResponseDto.<List<CategoryListDto>>builder()
-        .code(HttpStatus.OK.value())
-        .message("Category obtained successfully")
-        .data(categories)
-        .build();
-  }
-  @PatchMapping("/{id}")
-  public GenericResponseDto<Void> updateCategory(@PathVariable Long id, @Valid @RequestBody CategorySaveDto dto){
-    log.info("PATCH /api/categories/{} - Update category by id", id);
-    this.categoryService.updateCategory(id, dto);
+  @Operation(summary = "Find categories", description = "Find all categories if there is stored data.")
+  @ApiResponse(responseCode = "200", description = "Category obtained")
+  GenericResponseDto<List<CategoryListDto>> getAllCategory();
 
-    return GenericResponseDto.<Void>builder()
-        .code(HttpStatus.OK.value())
-        .message("Category updated successfully")
-        .build();
-  }
-  @DeleteMapping("/{id}")
-  public GenericResponseDto<Void> deleteCategory(@PathVariable Long id){
-    log.info("DELETE /api/categories/{} - Delete category by id", id);
-    this.categoryService.deleteCategory(id);
+  @Operation(summary = "Update category", description = "Update a category by id if the category is found and the name does not exist")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Category updated"),
+      @ApiResponse(responseCode = "404", description = "Category not found"),
+      @ApiResponse(responseCode = "409", description = "Category name already exists"),
+      @ApiResponse(responseCode = "422", description = "Category name format is invalid")
+  })
+  GenericResponseDto<Void> updateCategory(Long id, CategorySaveDto dto);
 
-    return GenericResponseDto.<Void>builder()
-        .code(HttpStatus.OK.value())
-        .message("Category deleted successfully")
-        .build();
-  }
+  @Operation(summary = "Delete category", description = "Delete a category by id if the category is found.")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Category deleted"),
+      @ApiResponse(responseCode = "404", description = "Category not found"),
+  })
+  GenericResponseDto<Void> deleteCategory(Long id);
 }

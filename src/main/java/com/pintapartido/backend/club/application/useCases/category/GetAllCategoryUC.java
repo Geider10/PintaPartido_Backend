@@ -11,6 +11,10 @@ public class GetAllCategoryUC {
   public GetAllCategoryUC(CategoryRepository categoryRepository){
     this.categoryRepository = categoryRepository;
   }
+  /**
+   * Get all categories if there is stored data.
+   * @return a list of categories
+   */
   public List<CategoryListDto> execute(){
     List<CategoryModel> categories = this.categoryRepository.findAll();
 
