@@ -1,17 +1,16 @@
 package com.pintapartido.backend.club.application.mappers;
 
-import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDTO;
-import com.pintapartido.backend.club.application.dtos.request.ScheduleUpdateDto;
+import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDto;
 import com.pintapartido.backend.club.application.dtos.response.ScheduleListDto;
 import com.pintapartido.backend.club.domain.models.ScheduleModel;
 
 public class ScheduleMapper {
-  public static ScheduleModel convertToModel(ScheduleSaveDTO dto){
+  public static ScheduleModel convertToModel(Long clubId, ScheduleSaveDto dto){
     return new ScheduleModel(
         dto.getDayType(),
         dto.getStartTime(),
         dto.getEndTime(),
-        dto.getClubId()
+        clubId
     );
   }
   public static ScheduleListDto convertToScheduleList(ScheduleModel model){
@@ -22,7 +21,7 @@ public class ScheduleMapper {
         model.getEndTimeString()
     );
   }
-  public static void updateToModel(ScheduleModel model, ScheduleUpdateDto dto){
+  public static void updateToModel(ScheduleModel model, ScheduleSaveDto dto){
     model.setDayType(dto.getDayType());
     model.setStartTime(dto.getStartTime());
     model.setEndTime(dto.getEndTime());

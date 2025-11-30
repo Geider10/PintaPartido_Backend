@@ -1,7 +1,6 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
-import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDTO;
-import com.pintapartido.backend.club.application.dtos.request.ScheduleUpdateDto;
+import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDto;
 import com.pintapartido.backend.club.application.dtos.response.ScheduleListDto;
 import com.pintapartido.backend.club.application.services.ScheduleService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
@@ -20,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/schedules")
+@RequestMapping("/api/clubs")
 @Slf4j
 public class ScheduleController {
   private final ScheduleService scheduleService;
@@ -28,10 +27,10 @@ public class ScheduleController {
     this.scheduleService = scheduleService;
   }
 
-  @PostMapping()
-  public ResponseEntity<GenericResponseDto<Void>> createSchedule(@Valid @RequestBody ScheduleSaveDTO dto){
-    log.info("POST /api/schedules - Create schedule");
-    this.scheduleService.createSchedule(dto);
+  @PostMapping("/{clubId}/schedules")
+  public ResponseEntity<GenericResponseDto<Void>> createSchedule(@PathVariable Long clubId, @Valid @RequestBody ScheduleSaveDto dto){
+    log.info("POST /api/clubs/{}/schedules - Create schedule", clubId);
+    this.scheduleService.createSchedule(clubId, dto);
 
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(GenericResponseDto.<Void>builder()
@@ -39,9 +38,9 @@ public class ScheduleController {
             .message("Schedule created successfully")
             .build());
   }
-  @GetMapping("/club/{clubId}")
+  @GetMapping("/{clubId}/schedules")
   public ResponseEntity<GenericResponseDto<List<ScheduleListDto>>> getAllScheduleByClubId(@PathVariable Long clubId){
-    log.info("GET /api/schedules/club/{} - Get all schedules by club id", clubId);
+    log.info("GET /api/clubs/{}/schedules - Get all schedules by club", clubId);
     List<ScheduleListDto> schedules = this.scheduleService.getAllScheduleByClubId(clubId);
 
     return ResponseEntity.status(HttpStatus.OK)
@@ -51,10 +50,10 @@ public class ScheduleController {
             .data(schedules)
             .build());
   }
-  @PatchMapping("/{id}/club/{clubId}")
-  public ResponseEntity<GenericResponseDto<Void>> updateScheduleByClub(@PathVariable Long id, @PathVariable Long clubId,@Valid @RequestBody ScheduleUpdateDto dto){
-    log.info("PATCH /api/schedules/{}/club/{} - Update schedule by id and club id",id, clubId);
-    this.scheduleService.updateScheduleByClub(id, clubId, dto);
+  @PatchMapping("/{clubId}/schedules/{scheduleId}")
+  public ResponseEntity<GenericResponseDto<Void>> updateScheduleByClub(@PathVariable Long clubId, @PathVariable Long scheduleId, @Valid @RequestBody ScheduleSaveDto dto){
+    log.info("PATCH /api/clubs/{}/schedules/{} - Update schedule by id and club", clubId, scheduleId);
+    this.scheduleService.updateScheduleByClub(scheduleId, clubId, dto);
 
     return ResponseEntity.status(HttpStatus.OK)
         .body(GenericResponseDto.<Void>builder()
@@ -62,10 +61,10 @@ public class ScheduleController {
             .message("Schedule updated successfully")
             .build());
   }
-  @DeleteMapping("/{id}/club/{clubId}")
-  public ResponseEntity<GenericResponseDto<Void>> deleteScheduleByClub(@PathVariable Long id, @PathVariable Long clubId){
-    log.info("DELETE /api/schedules/{}/club/{} - Delete schedule by id and club id", id, clubId);
-    this.scheduleService.deleteScheduleByClub(id, clubId);
+  @DeleteMapping("/{clubId}/schedules/{scheduleId}")
+  public ResponseEntity<GenericResponseDto<Void>> deleteScheduleByClub(@PathVariable Long clubId, @PathVariable Long scheduleId){
+    log.info("DELETE /api/clubs/{}/schedules/{} - Delete schedule by id and club", clubId, scheduleId);
+    this.scheduleService.deleteScheduleByClub(scheduleId, clubId);
 
     return ResponseEntity.status(HttpStatus.OK)
         .body(GenericResponseDto.<Void>builder()

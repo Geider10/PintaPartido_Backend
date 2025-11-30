@@ -26,7 +26,7 @@ public class UpdateCategoryUC {
    */
   public void execute(Long id, CategorySaveDto dto){
     Optional<CategoryModel> category = this.categoryRepository.findById(id);
-    if (category.isEmpty()) throw new NotFoundException("Category not found");
+    if (category.isEmpty()) throw new NotFoundException("Category not found by id");
 
     boolean existsCategory = this.categoryRepository.existsByNameAndIdNot(dto.getName(), id);
     if (existsCategory) throw new ConflictException("Category name already exists");

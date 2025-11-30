@@ -6,9 +6,9 @@ import com.pintapartido.backend.club.domain.models.ScheduleModel;
 import com.pintapartido.backend.club.domain.respositories.ScheduleRepository;
 import java.util.List;
 
-public class GetAllScheduleByClubIdUC {
+public class GetAllScheduleByClubUC {
   private final ScheduleRepository scheduleRepository;
-  public GetAllScheduleByClubIdUC(ScheduleRepository scheduleRepository){
+  public GetAllScheduleByClubUC(ScheduleRepository scheduleRepository){
     this.scheduleRepository = scheduleRepository;
   }
 

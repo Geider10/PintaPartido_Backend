@@ -21,7 +21,7 @@ public class DeleteCategoryUC {
    */
   public void execute(Long id){
     Optional<CategoryModel> category = this.categoryRepository.findById(id);
-    if (category.isEmpty()) throw new NotFoundException("Category not found");
+    if (category.isEmpty()) throw new NotFoundException("Category not found by id");
 
     this.categoryRepository.deleteById(id);
   }

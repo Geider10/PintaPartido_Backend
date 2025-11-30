@@ -12,7 +12,7 @@ public class DeleteScheduleByClubUC {
   }
   public void execute(Long id, Long clubId){
     Optional<ScheduleModel> schedule = this.scheduleRepository.findByIdAndClubId(id, clubId);
-    if (schedule.isEmpty()) throw new NotFoundException("Schedule cannot be get by ID or clubId because was not found.");
+    if (schedule.isEmpty()) throw new NotFoundException("Schedule not found by id and club");
 
     this.scheduleRepository.deleteByIdAndClubId(id, clubId);
   }
