@@ -13,30 +13,30 @@ import org.springframework.http.ResponseEntity;
 @Tag(name = "Category")
 public interface CategoryController {
 
-  @Operation(summary = "Create category", description = "Create a new category if the name doesn't exist")
+  @Operation(summary = "Create category", description = "Create a new category")
   @ApiResponses({
-      @ApiResponse(responseCode = "201", description = "Category created"),
+      @ApiResponse(responseCode = "201", description = "Category created successfully"),
       @ApiResponse(responseCode = "409", description = "Category name already exists"),
-      @ApiResponse(responseCode = "422", description = "Category name format is invalid")
+      @ApiResponse(responseCode = "422", description = "Name format is invalid")
   })
   ResponseEntity<GenericResponseDto<Void>> createCategory(CategorySaveDto dto);
 
-  @Operation(summary = "Find categories", description = "Find all categories if there is stored data.")
-  @ApiResponse(responseCode = "200", description = "Category obtained")
+  @Operation(summary = "Find categories", description = "Find all categories")
+  @ApiResponse(responseCode = "200", description = "Category obtained successfully")
   GenericResponseDto<List<CategoryListDto>> getAllCategory();
 
-  @Operation(summary = "Update category", description = "Update a category by id if the category is found and the name does not exist")
+  @Operation(summary = "Update category", description = "Update a category by id")
   @ApiResponses({
-      @ApiResponse(responseCode = "200", description = "Category updated"),
+      @ApiResponse(responseCode = "200", description = "Category updated successfully"),
       @ApiResponse(responseCode = "404", description = "Category not found"),
       @ApiResponse(responseCode = "409", description = "Category name already exists"),
-      @ApiResponse(responseCode = "422", description = "Category name format is invalid")
+      @ApiResponse(responseCode = "422", description = "Name format is invalid")
   })
   GenericResponseDto<Void> updateCategory(Long id, CategorySaveDto dto);
 
-  @Operation(summary = "Delete category", description = "Delete a category by id if the category is found.")
+  @Operation(summary = "Delete category", description = "Delete a category by id")
   @ApiResponses({
-      @ApiResponse(responseCode = "200", description = "Category deleted"),
+      @ApiResponse(responseCode = "200", description = "Category deleted successfully"),
       @ApiResponse(responseCode = "404", description = "Category not found"),
   })
   GenericResponseDto<Void> deleteCategory(Long id);

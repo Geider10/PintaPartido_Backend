@@ -10,9 +10,21 @@ public class DeleteScheduleByClubUC {
   public DeleteScheduleByClubUC(ScheduleRepository scheduleRepository){
     this.scheduleRepository = scheduleRepository;
   }
+
+  /**
+   * Delete schedule by id.<p>
+   *
+   * Business rules:<p>
+   * - Schedule must exist within the system.<p>
+   *
+   * Throws:<p>
+   * - NoFoundException if schedule not found.
+   * @param id
+   * @param clubId
+   */
   public void execute(Long id, Long clubId){
     Optional<ScheduleModel> schedule = this.scheduleRepository.findByIdAndClubId(id, clubId);
-    if (schedule.isEmpty()) throw new NotFoundException("Schedule cannot be get by ID or clubId because was not found.");
+    if (schedule.isEmpty()) throw new NotFoundException("Schedule not found by id and club");
 
     this.scheduleRepository.deleteByIdAndClubId(id, clubId);
   }

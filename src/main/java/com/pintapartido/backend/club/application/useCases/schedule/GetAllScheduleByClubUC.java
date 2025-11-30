@@ -6,12 +6,17 @@ import com.pintapartido.backend.club.domain.models.ScheduleModel;
 import com.pintapartido.backend.club.domain.respositories.ScheduleRepository;
 import java.util.List;
 
-public class GetAllScheduleByClubIdUC {
+public class GetAllScheduleByClubUC {
   private final ScheduleRepository scheduleRepository;
-  public GetAllScheduleByClubIdUC(ScheduleRepository scheduleRepository){
+  public GetAllScheduleByClubUC(ScheduleRepository scheduleRepository){
     this.scheduleRepository = scheduleRepository;
   }
 
+  /**
+   * Get all schedules by clubId
+   * @param clubId the schedule clubId, not null
+   * @return list of schedules
+   */
   public List<ScheduleListDto> execute(Long clubId){
     List<ScheduleModel> schedules = this.scheduleRepository.findByClubId(clubId);
 

@@ -14,10 +14,12 @@ public class UpdateCategoryUC {
     this.categoryRepository = categoryRepository;
   }
   /**
-   * Update a category by id if the category is found and the name does not exist.<p>
+   * Update a category by id.<p>
+   *
    * Business rules:<p>
    * - Category must exist within the system.<p>
    * - Category name must be uniques within the system.<p>
+   *
    * Throws:<p>
    * - NotFoundException if category not found.<p>
    * - ConflictException if category name already exists.
@@ -26,7 +28,7 @@ public class UpdateCategoryUC {
    */
   public void execute(Long id, CategorySaveDto dto){
     Optional<CategoryModel> category = this.categoryRepository.findById(id);
-    if (category.isEmpty()) throw new NotFoundException("Category not found");
+    if (category.isEmpty()) throw new NotFoundException("Category not found by id");
 
     boolean existsCategory = this.categoryRepository.existsByNameAndIdNot(dto.getName(), id);
     if (existsCategory) throw new ConflictException("Category name already exists");

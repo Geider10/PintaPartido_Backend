@@ -1,13 +1,15 @@
 package com.pintapartido.backend.club.application.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ScheduleUpdateDto {
+public class ScheduleSaveDto {
   @NotBlank(message = "Day type is required")
   private String dayType;
 

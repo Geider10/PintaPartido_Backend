@@ -12,16 +12,18 @@ public class DeleteCategoryUC {
   }
 
   /**
-   * Delete a category by id if the category is found.<p>
+   * Delete a category by id.<p>
+   *
    * Business rules:<p>
    * - Category must exist within the system.<p>
+   *
    * Throws:<p>
    * - NotFoundException if category not found.<p>
    * @param id the category id, not null
    */
   public void execute(Long id){
     Optional<CategoryModel> category = this.categoryRepository.findById(id);
-    if (category.isEmpty()) throw new NotFoundException("Category not found");
+    if (category.isEmpty()) throw new NotFoundException("Category not found by id");
 
     this.categoryRepository.deleteById(id);
   }

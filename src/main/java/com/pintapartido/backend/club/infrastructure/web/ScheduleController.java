@@ -1,76 +1,57 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
-import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDTO;
-import com.pintapartido.backend.club.application.dtos.request.ScheduleUpdateDto;
+import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDto;
 import com.pintapartido.backend.club.application.dtos.response.ScheduleListDto;
-import com.pintapartido.backend.club.application.services.ScheduleService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("/api/schedules")
-@Slf4j
-public class ScheduleController {
-  private final ScheduleService scheduleService;
-  public ScheduleController(ScheduleService scheduleService){
-    this.scheduleService = scheduleService;
-  }
+@Tag(name = "Schedule")
+public interface ScheduleController {
 
-  @PostMapping()
-  public ResponseEntity<GenericResponseDto<Void>> createSchedule(@Valid @RequestBody ScheduleSaveDTO dto){
-    log.info("POST /api/schedules - Create schedule");
-    this.scheduleService.createSchedule(dto);
+  @Operation(summary = "Create schedule", description = "Create a new schedule")
+  @ApiResponses({
+      @ApiResponse(responseCode = "201", description = "Schedule created successfully"),
+      @ApiResponse(responseCode = "409", description = "Schedule dayType already exists"),
+      @ApiResponse(
+          responseCode = "422",
+          description = """
+              Validation errors:
+              - DayType format is invalid
+              - StartTime is greater than endTime
+              - StartTime or endTime value is not permitted
+              """)
+  })
+  ResponseEntity<GenericResponseDto<Void>> createSchedule(Long clubId, ScheduleSaveDto dto);
 
-    return ResponseEntity.status(HttpStatus.CREATED)
-        .body(GenericResponseDto.<Void>builder()
-            .code(HttpStatus.CREATED.value())
-            .message("Schedule created successfully")
-            .build());
-  }
-  @GetMapping("/club/{clubId}")
-  public ResponseEntity<GenericResponseDto<List<ScheduleListDto>>> getAllScheduleByClubId(@PathVariable Long clubId){
-    log.info("GET /api/schedules/club/{} - Get all schedules by club id", clubId);
-    List<ScheduleListDto> schedules = this.scheduleService.getAllScheduleByClubId(clubId);
+  @Operation(summary = "Find schedules", description = "Find all schedules by clubId")
+  @ApiResponse(responseCode = "200", description = "Schedules obtained successfully")
+  GenericResponseDto<List<ScheduleListDto>> getAllScheduleByClubId(Long clubId);
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<List<ScheduleListDto>>builder()
-            .code(HttpStatus.OK.value())
-            .message("Schedule obtained successfully")
-            .data(schedules)
-            .build());
-  }
-  @PatchMapping("/{id}/club/{clubId}")
-  public ResponseEntity<GenericResponseDto<Void>> updateScheduleByClub(@PathVariable Long id, @PathVariable Long clubId,@Valid @RequestBody ScheduleUpdateDto dto){
-    log.info("PATCH /api/schedules/{}/club/{} - Update schedule by id and club id",id, clubId);
-    this.scheduleService.updateScheduleByClub(id, clubId, dto);
+  @Operation(summary = "Update schedule", description = "Update a schedule by id")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Schedule updated successfully"),
+      @ApiResponse(responseCode = "404", description = "Schedule not found"),
+      @ApiResponse(responseCode = "409", description = "Schedule dayType already exists"),
+      @ApiResponse(
+          responseCode = "422",
+          description = """
+              Validation errors:
+              - DayType format is invalid
+              - StartTime is greater than endTime
+              - StartTime or endTime value is not permitted
+              """)
+  })
+  GenericResponseDto<Void> updateScheduleByClub(Long clubId, Long scheduleId, ScheduleSaveDto dto);
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<Void>builder()
-            .code(HttpStatus.OK.value())
-            .message("Schedule updated successfully")
-            .build());
-  }
-  @DeleteMapping("/{id}/club/{clubId}")
-  public ResponseEntity<GenericResponseDto<Void>> deleteScheduleByClub(@PathVariable Long id, @PathVariable Long clubId){
-    log.info("DELETE /api/schedules/{}/club/{} - Delete schedule by id and club id", id, clubId);
-    this.scheduleService.deleteScheduleByClub(id, clubId);
-
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<Void>builder()
-            .code(HttpStatus.OK.value())
-            .message("Schedule deleted successfully")
-            .build());
-  }
+  @Operation(summary = "Delete schedule", description = "Delete a schedule by id")
+  @ApiResponses({
+      @ApiResponse(responseCode = "200", description = "Schedule deleted successfully"),
+      @ApiResponse(responseCode = "404", description = "Schedule not found")
+  })
+  GenericResponseDto<Void> deleteScheduleByClub(Long clubId, Long scheduleId);
 }
