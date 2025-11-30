@@ -14,10 +14,12 @@ public class UpdateCategoryUC {
     this.categoryRepository = categoryRepository;
   }
   /**
-   * Update a category by id if the category is found and the name does not exist.<p>
+   * Update a category by id.<p>
+   *
    * Business rules:<p>
    * - Category must exist within the system.<p>
    * - Category name must be uniques within the system.<p>
+   *
    * Throws:<p>
    * - NotFoundException if category not found.<p>
    * - ConflictException if category name already exists.

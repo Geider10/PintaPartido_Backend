@@ -8,13 +8,11 @@ import com.pintapartido.backend.shared.exceptions.category.DomainValidationExcep
  *
  * Business rules:<p>
  * - The name must match with a value {@link CategoryTypeEnum}.<p>
- * - The name must not be null or blank.<p>
- * - The id must not be bull.<p>
+ * - The name and id must not be null.<p>
  *
  * Throws DomainValidationException.<p>
  * - The name format is invalid .<p>
- * - The name is null or blank.<p>
- * - The id is null.
+ * - The name and id are null.
  */
 public class CategoryModel {
   private Long id;

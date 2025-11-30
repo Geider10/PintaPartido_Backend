@@ -12,6 +12,11 @@ public class GetAllScheduleByClubUC {
     this.scheduleRepository = scheduleRepository;
   }
 
+  /**
+   * Get all schedules by clubId
+   * @param clubId the schedule clubId, not null
+   * @return list of schedules
+   */
   public List<ScheduleListDto> execute(Long clubId){
     List<ScheduleModel> schedules = this.scheduleRepository.findByClubId(clubId);
 

@@ -12,7 +12,7 @@ public class CreateCategoryUC {
     this.categoryRepository = categoryRepository;
   }
   /**
-   * Create a new category if the name doesn't exist.<p>
+   * Create a new category.<p>
    *
    * Business rules:<p>
    * - Category name must be uniques within the system.<p>
