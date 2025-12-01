@@ -1,21 +1,21 @@
 package com.pintapartido.backend.club.application.useCases.club;
 
-import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDto;
 import com.pintapartido.backend.club.application.mappers.ClubMapper;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import com.pintapartido.backend.club.domain.models.ClubModel;
 import com.pintapartido.backend.club.domain.respositories.ClubRepository;
 import java.util.Optional;
 
-public class GetClubByIdUseCase {
+public class GetClubByIdUC {
   public final ClubRepository clubRepository;
-  public GetClubByIdUseCase(ClubRepository clubRepository){
+  public GetClubByIdUC(ClubRepository clubRepository){
     this.clubRepository = clubRepository;
   }
 
-  public ClubDetailDTO execute(Long id){
+  public ClubDetailDto execute(Long id){
     Optional<ClubModel> club = this.clubRepository.findById(id);
-    if(club.isEmpty()) throw new NotFoundException("Club cannot be get by ID because was not found.");
+    if(club.isEmpty()) throw new NotFoundException("Club not found by id");
 
     return ClubMapper.convertToClubDetail(club.get());
   }

@@ -1,9 +1,10 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
-import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
-import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
-import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
-import com.pintapartido.backend.club.application.dtos.request.ClubStatusDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDto;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
+import com.pintapartido.backend.club.application.dtos.request.ClubStatusDto;
 import com.pintapartido.backend.club.application.services.ClubService;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
 import jakarta.validation.Valid;
@@ -31,8 +32,8 @@ public class ClubController {
   }
 
   @PostMapping()
-  public ResponseEntity<GenericResponseDto<Void>> createClub(@Valid @RequestBody ClubSaveDTO dto){
-     log.info("POST /clubs - Create club");
+  public ResponseEntity<GenericResponseDto<Void>> createClub(@Valid @RequestBody ClubSaveDto dto){
+     log.info("POST /api/clubs - Create club");
      this.clubService.createClub(dto);
 
      return ResponseEntity.status(HttpStatus.CREATED)
@@ -41,61 +42,61 @@ public class ClubController {
                  .message("Club created successfully")
                  .build());
   }
-  @GetMapping()
-  public ResponseEntity<GenericResponseDto<List<ClubListDTO>>> getAllClubs(@RequestParam(required = false, defaultValue = "") String status){
-    log.info("GET /clubs - Get all clubs");
-    List<ClubListDTO> clubs = clubService.getAllClubs(status);
 
-    return ResponseEntity.status(HttpStatus.OK)
-            .body(GenericResponseDto.<List<ClubListDTO>>builder()
+  @GetMapping()
+  public GenericResponseDto<List<ClubListDto>> getAllClubs(@RequestParam(required = false, defaultValue = "") String status){
+    log.info("GET /api/clubs - Get all clubs");
+    List<ClubListDto> clubs = clubService.getAllClubs(status);
+
+    return GenericResponseDto.<List<ClubListDto>>builder()
                 .code(HttpStatus.OK.value())
                 .message("Clubs obtained successfully")
                 .data(clubs)
-                .build());
+                .build();
   }
-  @GetMapping("/{id}")
-  public ResponseEntity<GenericResponseDto<ClubDetailDTO>> getClubById(@PathVariable Long id){
-    log.info("GET /clubs/{} - Get club by id", id);
-    ClubDetailDTO club = this.clubService.getClubById(id);
 
-    return ResponseEntity.status(HttpStatus.OK)
-            .body(GenericResponseDto.<ClubDetailDTO>builder()
+  @GetMapping("/{id}")
+  public GenericResponseDto<ClubDetailDto> getClubById(@PathVariable Long id){
+    log.info("GET /api/clubs/{} - Get club by id", id);
+    ClubDetailDto club = this.clubService.getClubById(id);
+
+    return GenericResponseDto.<ClubDetailDto>builder()
                 .code(HttpStatus.OK.value())
                 .message("Club obtained successfully")
                 .data(club)
-                .build());
+                .build();
   }
+
   @PatchMapping("/{id}")
-  public ResponseEntity<GenericResponseDto<Void>> updateClub(@PathVariable Long id,@Valid @RequestBody ClubSaveDTO dto){
-    log.info("PATCH /clubs/{} - Update club by id", id);
+  public GenericResponseDto<Void> updateClub(@PathVariable Long id,@Valid @RequestBody ClubUpdateDto dto){
+    log.info("PATCH /api/clubs/{} - Update club by id", id);
     this.clubService.updateClub(id, dto);
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<Void>builder()
+    return GenericResponseDto.<Void>builder()
             .code(HttpStatus.OK.value())
             .message("Club updated successfully")
-            .build());
+            .build();
   }
+
   @PatchMapping("/{id}/status")
-  public ResponseEntity<GenericResponseDto<Void>> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDTO statusDto){
-    log.info("PATCH /clubs/{}/status - Update club status by id",id);
+  public GenericResponseDto<Void> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDto statusDto){
+    log.info("PATCH /api/clubs/{}/status - Update club status by id",id);
     this.clubService.updateClubStatus(id, statusDto);
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<Void>builder()
+    return GenericResponseDto.<Void>builder()
             .code(HttpStatus.OK.value())
             .message("Club status updated successfully")
-            .build());
+            .build();
   }
+
   @DeleteMapping("/{id}")
-  public ResponseEntity<GenericResponseDto<Void>> deleteClubById(@PathVariable Long id){
-    log.info("DELETE /clubs/{} - Delete club by id", id);
+  public GenericResponseDto<Void> deleteClubById(@PathVariable Long id){
+    log.info("DELETE /api/clubs/{} - Delete club by id", id);
     this.clubService.deleteClubById(id);
 
-    return ResponseEntity.status(HttpStatus.OK)
-        .body(GenericResponseDto.<Void>builder()
+    return GenericResponseDto.<Void>builder()
             .code(HttpStatus.OK.value())
             .message("Club deleted successfully")
-            .build());
+            .build();
   }
 }

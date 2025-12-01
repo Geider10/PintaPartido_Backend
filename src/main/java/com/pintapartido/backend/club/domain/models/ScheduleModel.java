@@ -79,8 +79,8 @@ public class ScheduleModel {
   public void setEndTime(String endTime){
     this.validateAttributeValue(endTime, "EndTime is required");
     this.endTime = this.formatToTime(endTime);
-    this.validateTimeConsistency();
     this.validateEndTimeMax();
+    this.validateTimeConsistency();
   }
   public void setClubId(Long clubId){
     this.validateAttributeValue(clubId, "ClubId is required");

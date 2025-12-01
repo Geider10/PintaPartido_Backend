@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ClubStatusDTO {
+public class ClubStatusDto {
   @NotBlank(message = "Status is required")
   private String status;
 }

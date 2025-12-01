@@ -4,7 +4,7 @@ import com.pintapartido.backend.club.application.dtos.request.CategorySaveDto;
 import com.pintapartido.backend.club.application.mappers.CategoryMapper;
 import com.pintapartido.backend.club.domain.models.CategoryModel;
 import com.pintapartido.backend.club.domain.respositories.CategoryRepository;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import com.pintapartido.backend.shared.exceptions.category.ConflictException;
 import java.util.Optional;
 

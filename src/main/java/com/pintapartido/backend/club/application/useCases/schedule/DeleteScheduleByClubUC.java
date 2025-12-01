@@ -2,7 +2,7 @@ package com.pintapartido.backend.club.application.useCases.schedule;
 
 import com.pintapartido.backend.club.domain.models.ScheduleModel;
 import com.pintapartido.backend.club.domain.respositories.ScheduleRepository;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import java.util.Optional;
 
 public class DeleteScheduleByClubUC {

@@ -1,25 +1,26 @@
 package com.pintapartido.backend.club.application.useCases.club;
 
-import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
+import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
 import com.pintapartido.backend.club.application.mappers.ClubMapper;
-import com.pintapartido.backend.club.domain.exceptions.DuplicateClubNameAndAddressException;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.ConflictException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import com.pintapartido.backend.club.domain.models.ClubModel;
 import com.pintapartido.backend.club.domain.respositories.ClubRepository;
 import java.util.Optional;
 
-public class UpdateClubUseCase {
+public class UpdateClubByIdUC {
   private final ClubRepository clubRepository;
-  public UpdateClubUseCase(ClubRepository clubRepository){
+  public UpdateClubByIdUC(ClubRepository clubRepository){
     this.clubRepository = clubRepository;
   }
 
-  public void execute(Long id, ClubSaveDTO dto){
+  public void execute(Long id, ClubUpdateDto dto){
     Optional<ClubModel> club = this.clubRepository.findById(id);
-    if(club.isEmpty()) throw new NotFoundException("Club cannot be get by ID because was not found.");
+    if(club.isEmpty()) throw new NotFoundException("Club not found by id");
 
     boolean existsClub = this.clubRepository.existsByNameAndAddressAndIdNot(dto.getName(), dto.getAddress(),id);
-    if(existsClub) throw new DuplicateClubNameAndAddressException();
+    if(existsClub) throw new ConflictException("Club name and address already exists");
 
     ClubMapper.updateToModel(dto, club.get());
     this.clubRepository.save(club.get());
