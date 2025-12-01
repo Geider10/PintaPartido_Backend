@@ -3,6 +3,17 @@ package com.pintapartido.backend.club.domain.models;
 import com.pintapartido.backend.club.domain.enums.StatusEnum;
 import com.pintapartido.backend.shared.exceptions.category.DomainValidationException;
 
+/**
+ * Domain module represents a club.<p>
+ *
+ * Business rules:<p>
+ * - The status must match with value {@link StatusEnum}.<p>
+ * - The attributes are required.<p>
+ *
+ * Throws DomainException:<p>
+ * - The status format is invalid.<p>
+ * - Any attribute is null.
+ */
 public class ClubModel {
   private Long id;
   private String name;
@@ -12,6 +23,13 @@ public class ClubModel {
   private Long ownerId;
   //private List<ScheduleModel> schedules;
 
+  /**
+   * Creates a new club that validations business rules.
+   * @param name the club name, not null
+   * @param address the club address, not null
+   * @param location the club location, not null
+   * @param ownerId the club owner, not null
+   */
   public ClubModel(String name, String address, String location, Long ownerId) {
     this.setName(name);
     this.setAddress(address);
@@ -19,6 +37,16 @@ public class ClubModel {
     this.status = StatusEnum.INACTIVE;
     this.setOwnerId(ownerId);
   }
+
+  /**
+   * Creates a club. Used to map objects from persistence.
+   * @param id the club id, not null
+   * @param name the club name, not null
+   * @param address the club address, not null
+   * @param location the club location, not null
+   * @param status the club status, not null
+   * @param ownerId the club owner, not null
+   */
   public ClubModel(Long id,String name, String address, String location, String status, Long ownerId) {
     this.setId(id);
     this.setName(name);

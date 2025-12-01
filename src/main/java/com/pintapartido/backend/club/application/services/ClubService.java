@@ -9,7 +9,7 @@ import com.pintapartido.backend.club.application.useCases.club.DeleteClubByIdUC;
 import com.pintapartido.backend.club.application.useCases.club.GetAllClubsUC;
 import com.pintapartido.backend.club.application.useCases.club.GetClubByIdUC;
 import com.pintapartido.backend.club.application.useCases.club.CreateClubUC;
-import com.pintapartido.backend.club.application.useCases.club.UpdateClubSatusUC;
+import com.pintapartido.backend.club.application.useCases.club.UpdateClubStatusUC;
 import com.pintapartido.backend.club.application.useCases.club.UpdateClubByIdUC;
 import com.pintapartido.backend.club.domain.respositories.ClubRepository;
 import jakarta.validation.Valid;
@@ -20,7 +20,7 @@ public class ClubService {
   private final GetAllClubsUC getAllClubsUC;
   private final GetClubByIdUC getClubByIdUC;
   private final UpdateClubByIdUC updateClubByIdUC;
-  private final UpdateClubSatusUC updateClubSatusUC;
+  private final UpdateClubStatusUC updateClubStatusUC;
   private final DeleteClubByIdUC deleteClubByIdUC;
 
   public ClubService(ClubRepository clubRepository){
@@ -28,7 +28,7 @@ public class ClubService {
     this.getAllClubsUC = new GetAllClubsUC(clubRepository);
     this.getClubByIdUC = new GetClubByIdUC(clubRepository);
     this.updateClubByIdUC = new UpdateClubByIdUC(clubRepository);
-    this.updateClubSatusUC = new UpdateClubSatusUC(clubRepository);
+    this.updateClubStatusUC = new UpdateClubStatusUC(clubRepository);
     this.deleteClubByIdUC = new DeleteClubByIdUC(clubRepository);
   }
 
@@ -45,7 +45,7 @@ public class ClubService {
     this.updateClubByIdUC.execute(id, dto);
   }
   public void updateClubStatus(Long id, @Valid ClubStatusDto statusDto) {
-    this.updateClubSatusUC.execute(id, statusDto);
+    this.updateClubStatusUC.execute(id, statusDto);
   }
   public void deleteClubById(Long id){
     this.deleteClubByIdUC.execute(id);

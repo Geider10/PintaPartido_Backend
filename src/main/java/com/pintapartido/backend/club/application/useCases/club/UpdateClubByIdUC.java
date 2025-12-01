@@ -15,6 +15,19 @@ public class UpdateClubByIdUC {
     this.clubRepository = clubRepository;
   }
 
+  /**
+   * Update a club by id.<p>
+   *
+   * Business rules:<p>
+   * - Club must exist within the system.<p>
+   * - Club name and address must be uniques within the system.<p>
+   *
+   * Thows:<p>
+   * NotFoundException if club not found.<p>
+   * ConflictException if club name and address already exists.
+   * @param id the club id, not null
+   * @param dto the club data. not null
+   */
   public void execute(Long id, ClubUpdateDto dto){
     Optional<ClubModel> club = this.clubRepository.findById(id);
     if(club.isEmpty()) throw new NotFoundException("Club not found by id");

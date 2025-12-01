@@ -12,6 +12,11 @@ public class GetAllClubsUC {
     this.clubRepository = clubRepository;
   }
 
+  /**
+   * Get all clubs. Clubs can be filtered by their status.
+   * @param status the club status, not null
+   * @return clubs of list.
+   */
   public List<ClubListDto> execute(String status){
     List<ClubModel> clubs = this.clubRepository.findAll();
     if (!status.isBlank() && status.equals("ACTIVE") || status.equals("INACTIVE")){

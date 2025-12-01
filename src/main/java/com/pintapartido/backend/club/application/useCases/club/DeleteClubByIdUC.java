@@ -11,6 +11,16 @@ public class DeleteClubByIdUC {
     this.clubRepository = clubRepository;
   }
 
+  /**
+   * Delete a club by id.<p>
+   *
+   * Business rules:<p>
+   * - Club must exist within the system.<p>
+   *
+   * Throws:<p>
+   * - NotFoundException if club not found.
+   * @param id the club id, not null
+   */
   public void execute(Long id){
     Optional<ClubModel> club = this.clubRepository.findById(id);
     if (club.isEmpty()) throw new NotFoundException("Club not found by id");

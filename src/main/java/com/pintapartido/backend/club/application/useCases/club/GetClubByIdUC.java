@@ -13,6 +13,17 @@ public class GetClubByIdUC {
     this.clubRepository = clubRepository;
   }
 
+  /**
+   * Get a club by id.<p>
+   *
+   * Business rules: <p>
+   * - Club must exist within the system.<p>
+   *
+   * Throws:<p>
+   * - NotFoundException if club no found.
+   * @param id the club id, not null
+   * @return club resource.
+   */
   public ClubDetailDto execute(Long id){
     Optional<ClubModel> club = this.clubRepository.findById(id);
     if(club.isEmpty()) throw new NotFoundException("Club not found by id");
