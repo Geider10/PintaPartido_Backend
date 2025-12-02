@@ -3,7 +3,7 @@
 ## Descripción 
 Es un sistema para digitalizar y automatizar la gestión de canchas en clubes deportivos, remplazando el uso de papeles o archivos Excel.
 
-El proyecto está desarrollado siguiendo principios de **Clean Architecture** con un enfoque **Domain-Driven Design (DDD)**.  
+El proyecto está desarrollado aplicando los principios de **Clean Architecture** con un enfoque **Domain-Driven Design (DDD)**.  
 Las funcionalidades y casos de uso están inspirados en la plataforma **Alquila tu cancha**.
 https://atcsports.io/
 
@@ -13,7 +13,7 @@ https://atcsports.io/
 - Manejo de excepciones y datos nulos 
 - Respuestas estructuradas e integración de logging
 - Documentación con **JavaDoc** y **Swagger**
-- Flujo de trabajo con **Conventional commits** y **Pull Requests**
+- Flujo de trabajo con **Conventional commits** y **PR**
 - Arquitectura limpia: Domain → Application → Infrastructure
 
 
@@ -21,14 +21,14 @@ https://atcsports.io/
 **Admin**
 - Registrar al dueño y al club
 - Gestionar horarios del club
+- Gestionar canchas del club
 
 
 **Owner** (in process)
-- Administrar canchas
-- Configurar precios
-- Consultar turnos y realizar reservas 
-- Ver estado de cada turno (libre, reservado, cancelado)
-- Acceder al detalle de reservas (cliente, pago, fecha y hora)
+- Administrar precios
+- Consultar turnos (libre, reservado)
+- Reservar y cancelar un turno
+- Ver detalles de las reservas (cliente, pago, fecha y hora)
 
 
 ## Tecnologías
@@ -37,7 +37,7 @@ https://atcsports.io/
 - MySQL
 - Spring Data JPA
 - Jakarta Validation
-- Lombook
+- Lombok
 - Swagger/OpenAPI 3
 - Maven
 
@@ -46,17 +46,17 @@ https://atcsports.io/
 
 ```
 src/main/java/ar/com/pintapartido/backend/
-├── club/
+├── club/                              # Bounded context: club, schedule, court, courtDuration
 │   ├── application/                   # Lógica de aplicación
 │   │   ├── dtos/
 │   │   ├── mappers/
 │   │   ├── services/
 │   │   └── useCases/                     
-│   ├── domain/                        # Reglas del negocio
+│   ├── domain/                        # Capa de dominio
 │   │   ├── enums/                    
 │   │   ├── models/                 
 │   │   └── respositories/  
-│   ├── infrastructure/                # Implementaciones externas
+│   ├── infrastructure/                # Implementaciones técnicas
 │   │   ├── config/                    
 │   │   ├── persistence/               
 │   │   │   ├── adapter/
@@ -64,8 +64,8 @@ src/main/java/ar/com/pintapartido/backend/
 │   │   │   └── jpa/
 │   │   └── web/                       
 │   │       └── impl/
-├── reserve/
-├── user/
+├── reserve/                           # Bounded context: turn, reserve, customerPayment
+├── user/                              # Bounded context: user
 └── shared/                            # Componentes compartidos en toda la app 
     ├── dtos/                         
     └── exceptions/            
