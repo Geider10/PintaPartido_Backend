@@ -2,7 +2,7 @@ package com.pintapartido.backend.club.application.useCases.category;
 
 import com.pintapartido.backend.club.domain.models.CategoryModel;
 import com.pintapartido.backend.club.domain.respositories.CategoryRepository;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import java.util.Optional;
 
 public class DeleteCategoryUC {

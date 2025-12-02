@@ -7,7 +7,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class ClubSaveDTO {
+public class ClubUpdateDto {
   @NotBlank(message = "Name is required")
   @Size(min = 3, max = 100, message = "Name must has between 3 and 100 characters")
   private String name;

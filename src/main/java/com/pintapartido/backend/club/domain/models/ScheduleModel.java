@@ -7,18 +7,18 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 /**
- * Domain model represents a schedule.
+ * Domain model represents a schedule.<p>
  *
- * Business rules:
- * - The dayType must match with a value {@link DayTypeEnum}.
- * - The startTime must be less that endTime.
- * - The startTime o endTime value must be permitted.
- * - The attributes must not be null.
+ * Business rules:<p>
+ * - The dayType must match with a value {@link DayTypeEnum}.<p>
+ * - The startTime must be less that endTime.<p>
+ * - The startTime o endTime value must be permitted.<p>
+ * - The attributes are required.<p>
  *
- * Trows DomainException:
- * - The dayType format is invalid.
- * - The startTime is greater than endTime.
- * - The startTime or endTime value is not permitted.
+ * Trows DomainException:<p>
+ * - The dayType format is invalid.<p>
+ * - The startTime is greater than endTime.<p>
+ * - The startTime or endTime value is not permitted.<p>
  * - Any attribute is null.
  */
 public class ScheduleModel {
@@ -79,8 +79,8 @@ public class ScheduleModel {
   public void setEndTime(String endTime){
     this.validateAttributeValue(endTime, "EndTime is required");
     this.endTime = this.formatToTime(endTime);
-    this.validateTimeConsistency();
     this.validateEndTimeMax();
+    this.validateTimeConsistency();
   }
   public void setClubId(Long clubId){
     this.validateAttributeValue(clubId, "ClubId is required");

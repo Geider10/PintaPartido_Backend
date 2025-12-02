@@ -4,7 +4,7 @@ import com.pintapartido.backend.club.application.dtos.request.ScheduleSaveDto;
 import com.pintapartido.backend.club.application.mappers.ScheduleMapper;
 import com.pintapartido.backend.club.domain.models.ScheduleModel;
 import com.pintapartido.backend.club.domain.respositories.ScheduleRepository;
-import com.pintapartido.backend.shared.exceptions.NotFoundException;
+import com.pintapartido.backend.shared.exceptions.category.NotFoundException;
 import com.pintapartido.backend.shared.exceptions.category.ConflictException;
 import java.util.Optional;
 

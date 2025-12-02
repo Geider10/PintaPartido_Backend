@@ -28,7 +28,7 @@ public interface ScheduleController {
   })
   ResponseEntity<GenericResponseDto<Void>> createSchedule(Long clubId, ScheduleSaveDto dto);
 
-  @Operation(summary = "Find schedules", description = "Find all schedules by clubId")
+  @Operation(summary = "Get schedules", description = "Get all schedules by clubId")
   @ApiResponse(responseCode = "200", description = "Schedules obtained successfully")
   GenericResponseDto<List<ScheduleListDto>> getAllScheduleByClubId(Long clubId);
 

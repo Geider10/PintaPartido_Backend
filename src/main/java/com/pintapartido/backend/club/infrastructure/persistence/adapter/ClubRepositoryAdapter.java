@@ -22,7 +22,8 @@ public class ClubRepositoryAdapter implements ClubRepository {
         club.getName(),
         club.getAddress(),
         club.getLocation(),
-        club.getStatus()
+        club.getStatus(),
+        club.getOwnerId()
     );
     this.jpa.save(entity);
   }
@@ -35,7 +36,8 @@ public class ClubRepositoryAdapter implements ClubRepository {
         e.getName(),
         e.getAddress(),
         e.getLocation(),
-        e.getStatus()
+        e.getStatus(),
+        e.getOwnerId()
     ));
   }
 
@@ -47,7 +49,8 @@ public class ClubRepositoryAdapter implements ClubRepository {
             e.getName(),
             e.getAddress(),
             e.getLocation(),
-            e.getStatus()
+            e.getStatus(),
+            e.getOwnerId()
         )).toList();
   }
 
@@ -74,7 +77,8 @@ public class ClubRepositoryAdapter implements ClubRepository {
             e.getName(),
             e.getAddress(),
             e.getLocation(),
-            e.getStatus()
+            e.getStatus(),
+            e.getOwnerId()
         )).toList();
   }
 }

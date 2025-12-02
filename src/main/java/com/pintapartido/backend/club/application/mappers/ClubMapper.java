@@ -1,27 +1,29 @@
 package com.pintapartido.backend.club.application.mappers;
 
-import com.pintapartido.backend.club.application.dtos.response.ClubDetailDTO;
-import com.pintapartido.backend.club.application.dtos.response.ClubListDTO;
-import com.pintapartido.backend.club.application.dtos.request.ClubSaveDTO;
+import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubDetailDto;
+import com.pintapartido.backend.club.application.dtos.response.ClubListDto;
+import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
 import com.pintapartido.backend.club.domain.models.ClubModel;
 
 public class ClubMapper {
-  public static ClubModel convertToModel(ClubSaveDTO dto){
+  public static ClubModel convertToModel(ClubSaveDto dto){
     return new ClubModel(
         dto.getName(),
         dto.getAddress(),
-        dto.getLocation()
+        dto.getLocation(),
+        dto.getOwnerId()
     );
   }
-  public static ClubListDTO convertToClubList(ClubModel club){
-    return new ClubListDTO(
+  public static ClubListDto convertToClubList(ClubModel club){
+    return new ClubListDto(
         club.getId(),
         club.getAddress(),
         club.getLocation()
     );
   }
-  public static ClubDetailDTO convertToClubDetail(ClubModel club){
-    return new ClubDetailDTO(
+  public static ClubDetailDto convertToClubDetail(ClubModel club){
+    return new ClubDetailDto(
         club.getId(),
         club.getName(),
         club.getAddress(),
@@ -29,7 +31,7 @@ public class ClubMapper {
         club.getStatus()
     );
   }
-  public static void updateToModel(ClubSaveDTO dto, ClubModel club){
+  public static void updateToModel(ClubUpdateDto dto, ClubModel club){
     club.setName(dto.getName());
     club.setAddress(dto.getAddress());
     club.setLocation(dto.getLocation());

@@ -21,7 +21,7 @@ public interface CategoryController {
   })
   ResponseEntity<GenericResponseDto<Void>> createCategory(CategorySaveDto dto);
 
-  @Operation(summary = "Find categories", description = "Find all categories")
+  @Operation(summary = "Get categories", description = "Get all categories")
   @ApiResponse(responseCode = "200", description = "Category obtained successfully")
   GenericResponseDto<List<CategoryListDto>> getAllCategory();
 
