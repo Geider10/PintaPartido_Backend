@@ -10,5 +10,4 @@ public class ClubDetailDto {
   private String name;
   private String address;
   private String location;
-  private String status;
 }

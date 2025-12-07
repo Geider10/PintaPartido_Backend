@@ -29,9 +29,6 @@ public class ClubEntity {
   @Column(nullable = false, length = 100)
   private String location;
 
-  @Column(nullable = false, length = 20)
-  private String status;
-
   @Column(nullable = false)
   private Long ownerId;
 }

@@ -9,5 +9,4 @@ import org.springframework.stereotype.Repository;
 public interface ClubJpaRepository extends JpaRepository<ClubEntity, Long> {
   boolean existsByNameAndAddress(String name, String address);
   boolean existsByNameAndAddressAndIdNot(String name, String address, Long id);
-  List<ClubEntity> findByStatus(String status);
 }

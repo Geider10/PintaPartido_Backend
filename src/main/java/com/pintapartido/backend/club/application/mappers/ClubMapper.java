@@ -18,7 +18,7 @@ public class ClubMapper {
   public static ClubListDto convertToClubList(ClubModel club){
     return new ClubListDto(
         club.getId(),
-        club.getAddress(),
+        club.getName(),
         club.getLocation()
     );
   }
@@ -27,8 +27,7 @@ public class ClubMapper {
         club.getId(),
         club.getName(),
         club.getAddress(),
-        club.getLocation(),
-        club.getStatus()
+        club.getLocation()
     );
   }
   public static void updateToModel(ClubUpdateDto dto, ClubModel club){

@@ -1,6 +1,5 @@
 package com.pintapartido.backend.club.application.useCases.club;
 
-import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
 import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
 import com.pintapartido.backend.club.application.mappers.ClubMapper;
 import com.pintapartido.backend.shared.exceptions.category.ConflictException;
@@ -22,7 +21,7 @@ public class UpdateClubByIdUC {
    * - Club must exist within the system.<p>
    * - Club name and address must be uniques within the system.<p>
    *
-   * Thows:<p>
+   * Throws:<p>
    * NotFoundException if club not found.<p>
    * ConflictException if club name and address already exists.
    * @param id the club id, not null

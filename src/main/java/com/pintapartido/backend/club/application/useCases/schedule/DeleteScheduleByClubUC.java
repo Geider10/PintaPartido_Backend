@@ -19,8 +19,8 @@ public class DeleteScheduleByClubUC {
    *
    * Throws:<p>
    * - NoFoundException if schedule not found.
-   * @param id
-   * @param clubId
+   * @param id the schedule id, not null
+   * @param clubId the schedule clubId, not null
    */
   public void execute(Long id, Long clubId){
     Optional<ScheduleModel> schedule = this.scheduleRepository.findByIdAndClubId(id, clubId);
