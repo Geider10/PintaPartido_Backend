@@ -11,13 +11,11 @@ import java.time.format.DateTimeParseException;
  *
  * Business rules:<p>
  * - The dayType must match with a value {@link DayTypeEnum}.<p>
- * - The startTime must be less that endTime.<p>
  * - The startTime o endTime value must be permitted.<p>
  * - The attributes are required.<p>
  *
  * Trows DomainException:<p>
  * - The dayType format is invalid.<p>
- * - The startTime is greater than endTime.<p>
  * - The startTime or endTime value is not permitted.<p>
  * - Any attribute is null.
  */
@@ -80,7 +78,6 @@ public class ScheduleModel {
     this.validateAttributeValue(endTime, "EndTime is required");
     this.endTime = this.formatToTime(endTime);
     this.validateEndTimeMax();
-    this.validateTimeConsistency();
   }
   public void setClubId(Long clubId){
     this.validateAttributeValue(clubId, "ClubId is required");
@@ -109,19 +106,18 @@ public class ScheduleModel {
       throw new DomainValidationException("Time format is invalid");
     }
   }
-  private void validateTimeConsistency(){
-    boolean isAfterTime = this.startTime.isAfter(this.endTime);
-    if (isAfterTime) throw new DomainValidationException("Start time is greater than end time");
-  }
   private void validateStartTimeMin(){
     LocalTime minimumTime = LocalTime.parse("05:59");
     boolean isPermittedTime = this.startTime.isAfter(minimumTime);
     if (!isPermittedTime) throw new DomainValidationException("Start time is less than permitted");
   }
   private void validateEndTimeMax(){
-    LocalTime maximumTime = LocalTime.parse("23:59");
+    LocalTime maximumTime = LocalTime.parse("02:31");
     boolean isPermittedTime = this.endTime.isBefore(maximumTime);
-    if (!isPermittedTime) throw new DomainValidationException("End time is greater than permitted");
+    if (!isPermittedTime){
+      boolean isGraterEndTime = this.endTime.isAfter(this.startTime);
+      if (!isGraterEndTime) throw new DomainValidationException("End time is greater than permitted");
+    }
   }
   private void validateAttributeValue(String attribute, String message){
     if (attribute == null || attribute.isBlank()) throw new DomainValidationException(message);

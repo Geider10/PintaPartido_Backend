@@ -1,7 +1,6 @@
 package com.pintapartido.backend.club.infrastructure.web;
 
 import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
-import com.pintapartido.backend.club.application.dtos.request.ClubStatusDto;
 import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
 import com.pintapartido.backend.club.application.dtos.response.ClubDetailDto;
 import com.pintapartido.backend.club.application.dtos.response.ClubListDto;
@@ -18,14 +17,13 @@ public interface ClubController {
   @Operation(summary = "Create club", description = "Create a new club")
   @ApiResponses({
       @ApiResponse(responseCode = "201", description = "Club created successfully"),
-      @ApiResponse(responseCode = "409", description = "Club name and address already exists"),
-      @ApiResponse(responseCode = "422", description = "Club: status format is invalid")
+      @ApiResponse(responseCode = "409", description = "Club name and address already exists")
   })
   ResponseEntity<GenericResponseDto<Void>> createClub(ClubSaveDto dto);
 
-  @Operation(summary = "Get clubs", description = "Get all clubs. Clubs can be filtered by their status.")
+  @Operation(summary = "Get clubs", description = "Get all clubs.")
   @ApiResponse(responseCode = "200", description = "Club obtained successfully")
-  GenericResponseDto<List<ClubListDto>> getAllClubs(String status);
+  GenericResponseDto<List<ClubListDto>> getAllClubs();
 
   @Operation(summary = "Get club", description = "Get a club by id")
   @ApiResponses({
@@ -38,17 +36,9 @@ public interface ClubController {
   @ApiResponses({
       @ApiResponse(responseCode = "200", description = "Club updated successfully"),
       @ApiResponse(responseCode = "404", description = "Club not found"),
-      @ApiResponse(responseCode = "409", description = "Club name and address already exists"),
-      @ApiResponse(responseCode = "422", description = "Club: status format is invalid")
+      @ApiResponse(responseCode = "409", description = "Club name and address already exists")
   })
   GenericResponseDto<Void> updateClub(Long id, ClubUpdateDto dto);
-
-  @Operation(summary = "Update club status", description = "Update club status by id")
-  @ApiResponses({
-      @ApiResponse(responseCode = "200", description = "Club status updated successfully"),
-      @ApiResponse(responseCode = "404", description = "Club not found")
-  })
-  GenericResponseDto<Void> updateClubStatus(Long id, ClubStatusDto statusDto);
 
   @Operation(summary = "Delete club", description = "Delete a club by id")
   @ApiResponses({

@@ -13,15 +13,11 @@ public class GetAllClubsUC {
   }
 
   /**
-   * Get all clubs. Clubs can be filtered by their status.
-   * @param status the club status, not null
+   * Get all clubs.
    * @return clubs of list.
    */
-  public List<ClubListDto> execute(String status){
+  public List<ClubListDto> execute(){
     List<ClubModel> clubs = this.clubRepository.findAll();
-    if (!status.isBlank() && status.equals("ACTIVE") || status.equals("INACTIVE")){
-      clubs = this.clubRepository.findByStatus(status);
-    }
 
     return clubs.stream()
         .map(c -> ClubMapper.convertToClubList(c))

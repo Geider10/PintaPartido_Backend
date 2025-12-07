@@ -22,7 +22,6 @@ public class ClubRepositoryAdapter implements ClubRepository {
         club.getName(),
         club.getAddress(),
         club.getLocation(),
-        club.getStatus(),
         club.getOwnerId()
     );
     this.jpa.save(entity);
@@ -36,7 +35,6 @@ public class ClubRepositoryAdapter implements ClubRepository {
         e.getName(),
         e.getAddress(),
         e.getLocation(),
-        e.getStatus(),
         e.getOwnerId()
     ));
   }
@@ -49,7 +47,6 @@ public class ClubRepositoryAdapter implements ClubRepository {
             e.getName(),
             e.getAddress(),
             e.getLocation(),
-            e.getStatus(),
             e.getOwnerId()
         )).toList();
   }
@@ -67,18 +64,5 @@ public class ClubRepositoryAdapter implements ClubRepository {
   @Override
   public boolean existsByNameAndAddressAndIdNot(String name, String address, Long id) {
     return this.jpa.existsByNameAndAddressAndIdNot(name, address, id);
-  }
-
-  @Override
-  public List<ClubModel> findByStatus(String status) {
-    return this.jpa.findByStatus(status).stream()
-        .map(e -> new ClubModel(
-            e.getId(),
-            e.getName(),
-            e.getAddress(),
-            e.getLocation(),
-            e.getStatus(),
-            e.getOwnerId()
-        )).toList();
   }
 }

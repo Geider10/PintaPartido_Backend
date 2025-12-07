@@ -11,5 +11,4 @@ public interface ClubRepository {
   void deleteById(Long id);
   boolean existsByNameAndAddress(String name, String address);
   boolean existsByNameAndAddressAndIdNot(String name, String address, Long id);
-  List<ClubModel> findByStatus(String status);
 }

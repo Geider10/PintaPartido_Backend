@@ -4,7 +4,6 @@ import com.pintapartido.backend.club.application.dtos.request.ClubUpdateDto;
 import com.pintapartido.backend.club.application.dtos.response.ClubDetailDto;
 import com.pintapartido.backend.club.application.dtos.response.ClubListDto;
 import com.pintapartido.backend.club.application.dtos.request.ClubSaveDto;
-import com.pintapartido.backend.club.application.dtos.request.ClubStatusDto;
 import com.pintapartido.backend.club.application.services.ClubService;
 import com.pintapartido.backend.club.infrastructure.web.ClubController;
 import com.pintapartido.backend.shared.dtos.GenericResponseDto;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -47,9 +45,9 @@ public class ClubControllerImpl implements ClubController {
 
   @Override
   @GetMapping()
-  public GenericResponseDto<List<ClubListDto>> getAllClubs(@RequestParam(required = false, defaultValue = "") String status){
+  public GenericResponseDto<List<ClubListDto>> getAllClubs(){
     log.info("GET /api/clubs - Get all clubs");
-    List<ClubListDto> clubs = clubService.getAllClubs(status);
+    List<ClubListDto> clubs = clubService.getAllClubs();
 
     return GenericResponseDto.<List<ClubListDto>>builder()
                 .code(HttpStatus.OK.value())
@@ -80,18 +78,6 @@ public class ClubControllerImpl implements ClubController {
     return GenericResponseDto.<Void>builder()
             .code(HttpStatus.OK.value())
             .message("Club updated successfully")
-            .build();
-  }
-
-  @Override
-  @PatchMapping("/{id}/status")
-  public GenericResponseDto<Void> updateClubStatus(@PathVariable Long id, @Valid @RequestBody ClubStatusDto statusDto){
-    log.info("PATCH /api/clubs/{}/status - Update club status by id",id);
-    this.clubService.updateClubStatus(id, statusDto);
-
-    return GenericResponseDto.<Void>builder()
-            .code(HttpStatus.OK.value())
-            .message("Club status updated successfully")
             .build();
   }
 

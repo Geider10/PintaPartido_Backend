@@ -22,7 +22,6 @@ public interface ScheduleController {
           description = """
               Validation errors:
               - DayType format is invalid
-              - StartTime is greater than endTime
               - StartTime or endTime value is not permitted
               """)
   })
@@ -42,7 +41,6 @@ public interface ScheduleController {
           description = """
               Validation errors:
               - DayType format is invalid
-              - StartTime is greater than endTime
               - StartTime or endTime value is not permitted
               """)
   })
